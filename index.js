@@ -1,9 +1,12 @@
+require("dotenv").config();
+
 const express = require("express");
 const routes = require("./routes/apis");
 const app = express();
 const bodyParser = require("body-parser");
 const uri = process.env.MONGO_DB_URI;
 const mongoose = require("mongoose");
+
 const cors = require("cors");
 
 // connect to mongodb

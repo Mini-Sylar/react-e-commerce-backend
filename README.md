@@ -15,7 +15,8 @@ The backend for [React E-Commerce Frontend](https://github.com/Mini-Sylar/react-
 - Authentication, you would have to build this for yourself if you really need it
 
 ## Things to note
-create a ```.env``` file and put in your mongoDB URI in order to connect to your DB
+create a ```.env``` file and put in your mongoDB URI in order to connect to your DB. <br>
+check ```.env.development``` for example
 
 # Contribution
 Found any issue? open a pull request

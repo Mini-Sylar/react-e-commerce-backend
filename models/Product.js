@@ -21,7 +21,6 @@ const ProductSchema = new Schema({
   },
   price_before: {
     type: Number,
-    default: this.price,
   },
   times_bought: {
     type: Number,
@@ -31,6 +30,15 @@ const ProductSchema = new Schema({
     type: String,
     required: false,
   },
+  tags: {
+    type: String,
+    required: false,
+  },
+});
+
+ProductSchema.pre("save", function (next) {
+  this.price_before = this.price;
+  next();
 });
 
 const Product = mongoose.model("product", ProductSchema);

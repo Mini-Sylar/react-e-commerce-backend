@@ -1,5 +1,6 @@
 const express = require("express");
 const Product = require("../models/Product");
+const Order = require("../models/Order");
 
 const router = express.Router();
 
@@ -15,6 +16,18 @@ router.post("/add-product", (req, res, next) => {
   Product.create(req.body)
     .then(() => {
       res.send("Product Added Successfully");
+    })
+    .catch(next);
+});
+
+// place order
+router.post("/place-order", (req, res, next) => {
+  Order.create(req.body)
+    .then(() => {
+      res.send({
+        message: "Order Placed Successfully",
+        order: req.body,
+      });
     })
     .catch(next);
 });

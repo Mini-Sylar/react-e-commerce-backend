@@ -4,11 +4,11 @@ const express = require("express");
 const routes = require("./routes/apis");
 const app = express();
 const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 const uri = process.env.MONGO_DB_URI;
 const mongoose = require("mongoose");
-
 const cors = require("cors");
-
+app.use(cookieParser());
 // connect to mongodb
 mongoose
   .connect(uri, { useNewUrlParser: true, useUnifiedTopology: true })
@@ -19,9 +19,14 @@ mongoose
     console.log("Error: ", err);
   });
 
-app.use(cors());
+const corsConfig = {
+  credentials: true,
+  origin: true,
+};
+app.use(cors(corsConfig));
 // initialize middleware
 app.use(bodyParser.json());
+
 // initialize routes
 app.use("/api", routes);
 // error handling middleware

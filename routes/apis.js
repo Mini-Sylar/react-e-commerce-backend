@@ -1,6 +1,7 @@
 const express = require("express");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
+const authController = require("../Controller/authController");
 
 const router = express.Router();
 
@@ -31,5 +32,10 @@ router.post("/place-order", (req, res, next) => {
     })
     .catch(next);
 });
+
+// Auth Routes
+router.post("/register", authController.register);
+router.post("/login", authController.login);
+router.get("/logout", authController.logout);
 
 module.exports = router;

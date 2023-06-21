@@ -24,8 +24,9 @@ const authController = {
         },
       });
     } catch (error) {
-      console.log(error);
-      res.status(400).json(error);
+      res.status(400).json({
+        error: error.message,
+      });
     }
   },
   login: async (req, res) => {
@@ -44,7 +45,10 @@ const authController = {
         },
       });
     } catch (error) {
-      res.status(500).json(error);
+      console.log(error);
+      res.status(404).json({
+        error: error.message,
+      });
     }
   },
   logout: async (req, res) => {

@@ -2,6 +2,7 @@ const express = require("express");
 const Product = require("../models/Product");
 const Order = require("../models/Order");
 const authController = require("../Controller/authController");
+const checkAuth = require("../middleware/checkAuth");
 
 const router = express.Router();
 
@@ -22,7 +23,7 @@ router.post("/add-product", (req, res, next) => {
 });
 
 // place order
-router.post("/place-order", (req, res, next) => {
+router.post("/place-order", checkAuth, (req, res, next) => {
   Order.create(req.body)
     .then(() => {
       res.send({

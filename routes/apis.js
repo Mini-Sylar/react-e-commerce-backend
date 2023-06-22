@@ -34,6 +34,18 @@ router.post("/place-order", checkAuth, (req, res, next) => {
     .catch(next);
 });
 
+// get orders where user id matches
+router.get("/get-orders/:id", checkAuth, (req, res, next) => {
+  Order.find({ user_id: req.params.id })
+    .then((orders) => {
+      res.status(200).send({
+        orders: orders,
+        message: "Orders Fetched Successfully",
+      });
+    })
+    .catch(next);
+});
+
 // Auth Routes
 router.post("/register", authController.register);
 router.post("/login", authController.login);

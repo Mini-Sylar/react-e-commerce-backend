@@ -37,6 +37,28 @@ const OrderSchema = new Schema({
     type: Boolean,
     default: false,
   },
+  order_cancelled: {
+    type: Boolean,
+    default: false,
+  },
+  user_id: {
+    type: String,
+    required: true,
+  },
+  percentage_complete: {
+    type: Number,
+    default: 0,
+  },
+  order_placement_date: {
+    type: Date,
+    default: Date.now,
+  },
+  expected_delivery_date: {
+    type: Date,
+  },
+  delivery_address: {
+    type: String,
+  },
 });
 
 const Order = mongoose.model("order", OrderSchema);

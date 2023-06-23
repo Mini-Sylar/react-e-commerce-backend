@@ -32,6 +32,7 @@ const OrderSchema = new Schema({
   contact_number: {
     type: String,
     required: [true, "Contact number is required"],
+    default: "",
   },
   order_processed: {
     type: Boolean,
@@ -55,10 +56,28 @@ const OrderSchema = new Schema({
   },
   expected_delivery_date: {
     type: Date,
+    default: "",
   },
   delivery_address: {
     type: String,
+    default: "",
   },
+});
+
+OrderSchema.pre("save", function (next) {
+  if (this.delivery_type === "Standard") {
+    this.expected_delivery_date = new Date(
+      Date.now() + 3 * 24 * 60 * 60 * 1000
+    );
+  }
+
+  if (this.delivery_type === "Express") {
+    this.expected_delivery_date = new Date(
+      Date.now() + 1 * 24 * 60 * 60 * 1000
+    );
+  }
+
+  next();
 });
 
 const Order = mongoose.model("order", OrderSchema);

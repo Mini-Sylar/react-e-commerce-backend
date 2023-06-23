@@ -11,7 +11,11 @@ router.get("/get-products", (req, res, next) => {
     .then((products) => {
       res.send(products);
     })
-    .catch(next);
+    .catch((error) => {
+      res.status(400).send({
+        message: "Products not found",
+      });
+    });
 });
 
 router.post("/add-product", (req, res, next) => {
@@ -31,7 +35,11 @@ router.post("/place-order", checkAuth, (req, res, next) => {
         order: req.body,
       });
     })
-    .catch(next);
+    .catch((error) => {
+      res.status(400).send({
+        message: "Order Failed",
+      });
+    });
 });
 
 // get orders where user id matches
@@ -43,7 +51,11 @@ router.get("/get-orders/:id", checkAuth, (req, res, next) => {
         message: "Orders Fetched Successfully",
       });
     })
-    .catch(next);
+    .catch((error) => {
+      res.status(400).send({
+        message: "Orders not found",
+      });
+    });
 });
 
 // Auth Routes

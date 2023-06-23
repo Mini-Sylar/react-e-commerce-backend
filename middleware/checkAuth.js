@@ -7,10 +7,8 @@ const checkAuth = (req, res, next) => {
   if (token) {
     jwt.verify(token, process.env.JWT_SECRET, (err, decodedToken) => {
       if (err) {
-        console.log(err);
         res.status(401).json({ error: "Unauthorized" });
       } else {
-        console.log(decodedToken);
         next();
       }
     });

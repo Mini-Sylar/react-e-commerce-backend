@@ -42,6 +42,25 @@ router.post("/place-order", checkAuth, (req, res, next) => {
     });
 });
 
+router.post("/cancel-order", checkAuth, (req, res, next) => {
+  Order.findByIdAndUpdate(req.body.order_id, {
+    order_cancelled: true,
+    percentage_complete: 0,
+    expected_delivery_date: "",
+  })
+    .then(() => {
+      res.status(200).send({
+        message: "Order cancelled successfully",
+        order: req.body.order_id,
+      });
+    })
+    .catch(() => {
+      res.status(400).send({
+        message: "Order cancellation failed",
+      });
+    });
+});
+
 // get orders where user id matches
 router.get("/get-orders/:id", checkAuth, (req, res, next) => {
   Order.find({ user_id: req.params.id })

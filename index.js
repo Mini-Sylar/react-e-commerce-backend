@@ -22,6 +22,8 @@ mongoose
 const corsConfig = {
   credentials: true,
   origin: process.env.FRONTEND_URL,
+  sameSite: "none",
+  Secure: true,
 };
 app.use(cors(corsConfig));
 // initialize middleware
